@@ -1,63 +1,77 @@
-\begin{otherlanguage}{vietnamese}
+% =============================================================================
+%  TITLE PAGE
+%  Reads metadata.tex and members.tex -- no text is hard-coded here.
+% =============================================================================
 \begin{titlepage}
 \begin{tikzpicture}[remember picture, overlay]
-  \draw[line width = 4pt] ($(current page.north west) + (0.75in,-0.75in)$) rectangle ($(current page.south east) + (-0.75in,0.75in)$);
+    \draw[line width=4pt]
+        ($(current page.north west) + (0.75in,-0.75in)$) rectangle
+        ($(current page.south east) + (-0.75in,0.75in)$);
 \end{tikzpicture}
 
 \begin{center}
-\Large{\textcolor{lblue}{\textbf{VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY}}}\\
-\Large{\textcolor{dblue}{\textbf{HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY}}}\\
-\vspace{5mm}
-\Large{\textcolor{lblue}{\textbf{FACULTY OF COMPUTER SCIENCE AND ENGINEERING}}}
-\vfill
-\begin{figure}[H]
-\centering
-\includegraphics[scale=1]{images/logobachkhoasang.png}
-\end{figure}
-\vfill
 
-\huge{\textcolor{red}{\textbf{PROJECT REPORT}}}\\
-\vspace{3mm}
-\huge{\textbf{DATABASE SYSTEMS}}\\
-\huge{\textbf{(CO2014)}}\\
+    % --- Organisation (each line can be emptied in metadata.tex) -----------
+    \ifx\orglineA\empty\else
+        {\Large\textcolor{BrandPrimary}{\textbf{\orglineA}}}\\[1mm]
+    \fi
+    \ifx\orglineB\empty\else
+        {\Large\textcolor{BrandDark}{\textbf{\orglineB}}}\\[1mm]
+    \fi
+    \ifx\orglineC\empty\else
+        {\Large\textcolor{BrandPrimary}{\textbf{\orglineC}}}
+    \fi
 
-\line(1,0){400}\\
+    \vfill
 
-\huge{\textit{\textbf{ASSIGNMENT 1}}}\\
-\line(1,0){400}\\
+    % --- Logo (swap images/logo.png to rebrand) ---------------------------
+    \ifreportlogo
+        \IfFileExists{images/\logo}{\includegraphics[height=3.2cm]{\logo}}{}
+    \fi
 
-\vspace{1mm}
+    \vfill
 
+    % --- Report identity ---------------------------------------------------
+    {\huge\textcolor{BrandAccent}{\textbf{\doctype}}}\\[4mm]
+    {\huge\textbf{\coursename}}\\[1mm]
+    {\huge\textbf{(\coursecode)}}
 
-\vspace{3mm}
+    \vspace{4mm}
+    \rule{\linewidth}{0.8pt}
+    \vspace{2mm}
 
-\Large{Instructor(s):}\\
-\Large{Vu Ngoc Tu, CSE-HCMUT}\\
+    {\huge\textit{\textbf{\reporttitle}}}
 
+    \vspace{2mm}
+    \rule{\linewidth}{0.8pt}
 
-\vfill
+    \vfill
 
-\begin{Large}
-\begin{tabular}{|c|c|}
-\hline
-\Large{\textbf{Name}} & \Large{\textbf{Student ID}}\\
-\hline
-\Large{Nguyen Phuoc Nhat Duy} & \Large{2452205} \\
-\hline
-\Large{Pham Nguyen Cong Thanh} & \Large{2453175} \\
-\hline
-\Large{Nguyen Xuan An} & \Large{2452023} \\
-\hline
-\Large{Nguyen Gia Bao} & \Large{2452128} \\
-\hline
-\Large{Vo Thanh Phong} & \Large{2452965} \\
-\hline
-\end{tabular}
-\end{Large}
+    % --- Instructor --------------------------------------------------------
+    {\Large Instructor(s):}\\[1mm]
+    {\Large \instructor}
 
-\vfill
+    \vfill
 
-\Large{\textbf{Ho Chi Minh City, March, 2026}}\\
+    % --- Members (generated from members.tex) -----------------------------
+    \ifshowmembers
+        \renewcommand{\memberrow}[4]{%
+            \stepcounter{memberno}\thememberno & #1 & #2 \\ \hline
+        }%
+        \setcounter{memberno}{0}%
+        \renewcommand{\arraystretch}{1.25}%
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{No.} & \textbf{Name} & \textbf{Student ID}\\
+            \hline
+            \members
+        \end{tabular}
+    \fi
+
+    \vfill
+
+    % --- Place and date ----------------------------------------------------
+    {\Large\textbf{\locationdate}}
+
 \end{center}
 \end{titlepage}
-\end{otherlanguage}

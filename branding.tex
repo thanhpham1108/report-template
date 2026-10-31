@@ -1,0 +1,22 @@
+% =============================================================================
+%  BRANDING  --  palette and logo
+%  ---------------------------------------------------------------------------
+%  To reuse this report for another organisation:
+%    1. replace images/logo.png (keep the filename)
+%    2. edit the three \orgline entries in metadata.tex
+%  Nothing else changes.
+% =============================================================================
+
+% --- Palette ----------------------------------------------------------------
+\definecolor{BrandPrimary}{RGB}{36, 164, 220}    % rules, links, accents
+\definecolor{BrandDark}{RGB}{3, 43, 145}         % headings, citations
+\definecolor{BrandLight}{RGB}{235, 250, 255}     % definition background
+\definecolor{BrandSoft}{RGB}{242, 242, 255}      % example background
+\definecolor{BrandAccent}{RGB}{201, 42, 135}     % document type, problems
+\definecolor{TheoremGreen}{RGB}{7, 135, 44}      % theorem / corollary border
+\definecolor{ExampleOrange}{RGB}{217, 119, 6}    % example border
+
+% --- Logo -------------------------------------------------------------------
+\newcommand{\logo}{logo.png}    % resolved through \graphicspath{{images/}}
+\newif\ifreportlogo
+\reportlogotrue                 % \reportlogofalse hides it in header and cover

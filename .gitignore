@@ -1,0 +1,25 @@
+# LaTeX build output
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.xdv
+main.pdf
+
+# Packaging and OS noise
+*.zip
+.DS_Store
+Thumbs.db
+desktop.ini
+__MACOSX/

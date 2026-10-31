@@ -1,33 +1,70 @@
-\documentclass[10pt]{article}
+% =============================================================================
+%  REPORT TEMPLATE  --  start here
+%  ---------------------------------------------------------------------------
+%  Edit metadata.tex, members.tex and the files in sections/.
+%  The switches below control the optional front and back matter.
+% =============================================================================
+\documentclass[10pt, a4paper]{article}
+
 \usepackage{preamble}
-\usepackage{import}
-\graphicspath{ {./images/} }
+\input{metadata.tex}
+\input{members.tex}
+
+% --- Optional parts (set to true/false) --------------------------------------
+\newif\ifshowmembers  \showmemberstrue    % title-page and contribution tables
+\newif\ifshowabstract \showabstracttrue   % abstract page
+\newif\ifshowlof      \showloftrue        % list of figures
+\newif\ifshowlot      \showlottrue        % list of tables
+\newif\ifshowappendix \showappendixtrue   % appendix after the conclusion
 
 \begin{document}
+\pagenumbering{roman}
 
-% Trang bìa
-\import{./}{titlepage.tex}
-\thispagestyle{empty}
-\newpage
-\import{./}{memberworkload.tex}
-\thispagestyle{empty}
-\newpage
+% --- Front matter (roman page numbers, cover unnumbered) --------------------
+\input{titlepage.tex}
 
-% Mục lục
-\tableofcontents
-\thispagestyle{empty}
+\ifshowmembers
+    \clearpage
+    \input{contributions.tex}
+\fi
+
+\ifshowabstract
+    \clearpage
+    \input{sections/00-abstract.tex}
+\fi
+
 \clearpage
-\setcounter{page}{1}
+\tableofcontents
 
-% Nội dung chính
-% Section 1
-\newpage
-\import{./sections/}{section1.tex}
+\ifshowlof
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{section}{\listfigurename}
+    \listoffigures
+\fi
 
+\ifshowlot
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{section}{\listtablename}
+    \listoftables
+\fi
 
+% --- Main content (arabic page numbers, restart at 1) -----------------------
+\clearpage
+\pagenumbering{arabic}
 
+\input{sections/01-introduction.tex}
+\input{sections/99-conclusion.tex}
 
-\newpage
-\import{./}{ref.tex}
+\ifshowappendix
+    \clearpage
+    \appendix
+    \input{appendices/A-appendix.tex}
+\fi
+
+% --- References -------------------------------------------------------------
+\clearpage
+\printbibliography[heading=bibintoc]
 
 \end{document}
