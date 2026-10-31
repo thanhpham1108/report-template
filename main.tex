@@ -1,0 +1,33 @@
+\documentclass[10pt]{article}
+\usepackage{preamble}
+\usepackage{import}
+\graphicspath{ {./images/} }
+
+\begin{document}
+
+% Trang bìa
+\import{./}{titlepage.tex}
+\thispagestyle{empty}
+\newpage
+\import{./}{memberworkload.tex}
+\thispagestyle{empty}
+\newpage
+
+% Mục lục
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+\setcounter{page}{1}
+
+% Nội dung chính
+% Section 1
+\newpage
+\import{./sections/}{section1.tex}
+
+
+
+
+\newpage
+\import{./}{ref.tex}
+
+\end{document}

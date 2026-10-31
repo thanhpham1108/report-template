@@ -1,0 +1,195 @@
+\ProvidesPackage{preamble}
+
+% ==========================================
+% ENCODING & LANGUAGE
+% ==========================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage[main=english, vietnamese]{babel}
+
+% ==========================================
+% PAGE GEOMETRY & LAYOUT
+% ==========================================
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage[none]{hyphenat}
+\usepackage{microtype}
+\usepackage{chngcntr}
+\usepackage{numprint}
+
+\npthousandsep{\,}
+
+\parindent 0ex
+\setlength{\parskip}{0.5em}
+
+% ==========================================
+% MATH PACKAGES
+% ==========================================
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+
+% ==========================================
+% GRAPHICS, TABLES & BOXES
+% ==========================================
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{ulem}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{import}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage[nottoc, notlot, notlof]{tocbibind}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+% ==========================================
+% COLOR DEFINITIONS
+% ==========================================
+% Theme Colors
+\definecolor{blu}{RGB}{235, 250, 255}
+\definecolor{blued}{RGB}{36, 164, 220}
+\definecolor{lblue}{RGB}{20, 136, 219}
+\definecolor{dblue}{RGB}{3, 43, 145}
+\definecolor{gray1}{RGB}{242, 242, 255}
+\definecolor{gre}{RGB}{135, 204, 160}
+\definecolor{gree}{RGB}{7, 135, 44}
+\definecolor{yel}{RGB}{255, 248, 153}
+\definecolor{ye}{RGB}{222, 210, 20}
+\definecolor{jspink}{RGB}{201, 42, 135}
+
+% Code Listing Colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codebg}{rgb}{0.15,0.15,0.15}
+\definecolor{codefg}{rgb}{0.925,0.925,0.925}
+
+% ==========================================
+% CODE LISTINGS
+% ==========================================
+\usepackage{listings}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\newtcbox{\codeinline}{
+    on line,
+    arc=4pt,
+    colback=codefg,
+    colframe=codefg,
+    boxrule=0pt,
+    boxsep=1pt,
+    left=2pt,
+    right=2pt,
+    top=1pt,
+    bottom=1pt,
+    fontupper=\ttfamily\small
+}
+
+% ==========================================
+% HEADER & FOOTER (FANCYHDR)
+% ==========================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\setlength{\headheight}{19pt}
+
+\fancyhead[L]{\includegraphics[height=15pt]{images/logobachkhoasang.png}}
+\fancyhead[R]{\textbf{Database Systems Assignment}}
+\fancyfoot[C]{\textbf{\thepage}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ==========================================
+% THEOREM ENVIRONMENTS
+% ==========================================
+\usepackage{thmtools}
+\usepackage{mdframed}
+
+\theoremstyle{definition}
+
+\declaretheorem[
+    shaded={rulecolor=gree, rulewidth=1.5pt, bgcolor=white},
+    name=Theorem,
+]{theorem}
+
+\declaretheorem[
+    shaded={rulecolor=blued, rulewidth=1.5pt, bgcolor=blu},
+    name=Definition,
+]{definition}
+
+\declaretheorem[
+    shaded={rulecolor=jspink, rulewidth=1.3pt, bgcolor=white},
+    name=Problem,
+]{problem}
+\counterwithin*{problem}{section}
+
+\declaretheorem[
+    shaded={rulecolor=orange, rulewidth=1.5pt, bgcolor=gray1},
+    name=Example,
+]{example}
+
+\declaretheorem[
+    shaded={rulecolor=blued, rulewidth=1.5pt, bgcolor=blu},
+    name=The Closed Interval Method, unnumbered
+]{TCIM}
+
+\declaretheorem[
+    shaded={rulecolor=gree, rulewidth=1.5pt, bgcolor=white},
+    name=Corollary,
+]{corollary}
+
+% Custom Solution Environment
+\newenvironment{solution}
+{
+    \renewcommand{\qedsymbol}{} 
+    \begin{proof}[\textbf{Solution}]
+    \rule[0mm]{\textwidth}{0pt} \\[2mm]
+}
+{
+    \end{proof}
+}
+
+% Custom Proof Environment
+\newenvironment{Proof}
+  {\renewcommand\qedsymbol{$\square$}\begin{proof}[\textbf{Proof}]}
+  {\end{proof}}
+
+% Misc Commands
+\def\qm{\fbox{\textsf{\textbf{?}}}}
+
+% ==========================================
+% HYPERLINKS
+% ==========================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,     
+    linkcolor=black,  
+    citecolor=blue,
+    urlcolor=blue,
+}
