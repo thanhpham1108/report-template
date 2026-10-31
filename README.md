@@ -154,5 +154,5 @@ unique with a prefix (`fig:`, `tab:`, `sec:`).
 ## For reference
 
 This template came from a database-systems assignment (YouMed EERD); the
-untouched original is kept in the git history (`git show 4dec451 --stat`) in case
-you ever want to compare.
+untouched original is kept in the repository history, in case you ever want to
+compare.
