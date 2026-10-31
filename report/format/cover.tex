@@ -1,0 +1,95 @@
+% ==========================================
+% COVER PAGE + MEMBER ROLES PAGE
+% Layout is the original one. Text comes from metadata.tex and members.tex.
+% ==========================================
+\begin{otherlanguage}{vietnamese}
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width = 4pt] ($(current page.north west) + (0.75in,-0.75in)$) rectangle ($(current page.south east) + (-0.75in,0.75in)$);
+\end{tikzpicture}
+
+\begin{center}
+\Large{\textcolor{lblue}{\textbf{\orglineA}}}\\
+\Large{\textcolor{dblue}{\textbf{\orglineB}}}\\
+\vspace{5mm}
+\Large{\textcolor{lblue}{\textbf{\orglineC}}}
+\vfill
+\begin{figure}[H]
+\centering
+\ifreportlogo
+  \IfFileExists{images/\logo}{\includegraphics[scale=1]{\logo}}{}
+\fi
+\end{figure}
+\vfill
+
+\huge{\textcolor{red}{\textbf{\doctype}}}\\
+\vspace{3mm}
+\huge{\textbf{\coursename}}\\
+\huge{\textbf{(\coursecode)}}\\
+
+\rule{400pt}{0.4pt}\\
+
+\huge{\textit{\textbf{\reporttitle}}}\\
+\rule{400pt}{0.4pt}\\
+
+\vspace{1mm}
+
+
+\vspace{3mm}
+
+\Large{Instructor(s):}\\
+\Large{\instructor}\\
+
+
+\vfill
+
+\ifshowmembers
+\begingroup
+\renewcommand{\memberrow}[4]{\Large{#1} & \Large{#2} \\ \hline}
+\begin{Large}
+\begin{tabular}{|c|c|}
+\hline
+\Large{\textbf{Name}} & \Large{\textbf{Student ID}}\\
+\hline
+\members
+\end{tabular}
+\end{Large}
+\endgroup
+\fi
+
+\vfill
+
+\Large{\textbf{\locationdate}}\\
+\end{center}
+\end{titlepage}
+\end{otherlanguage}
+
+% ==========================================
+% ROLES OF THE MEMBERS
+% ==========================================
+\ifshowmembers
+\newpage
+\thispagestyle{empty}
+\begin{center}
+    \LARGE \textbf{ROLES OF THE MEMBERS IN THIS PROJECT}
+\end{center}
+
+\begin{Large}
+\begin{table}[H]
+\def\arraystretch{1.4}
+\centering
+\resizebox{\textwidth}{!}{%
+\begingroup
+\renewcommand{\memberrow}[4]{\stepcounter{memberno}\thememberno & #1 & #3 & #4\% \\ \hline}
+\setcounter{memberno}{0}%
+\begin{tabular}{|c|c|p{0.48\linewidth}|c|}
+\hline
+\textbf{No.} & \textbf{Name} & \multicolumn{1}{c|}{\textbf{Role in the assignment}} & \textbf{Task completion (\%) } \\
+\hline \hline
+\members
+\end{tabular}%
+\endgroup
+}
+\end{table}
+\end{Large}
+\fi

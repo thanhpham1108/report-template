@@ -1,17 +1,14 @@
-% =============================================================================
-%  MEMBERS
-%  ---------------------------------------------------------------------------
-%  One line per member:
-%      \memberrow{Full name}{Student ID}{Role in the project}{Completion}
+% ==========================================
+% MEMBERS — the only place you enter people
+% ==========================================
+% One line per member:
+%     \memberrow{Full name}{Student ID}{Role in the project}{Completion %}
 %
-%  The same list feeds BOTH the title page and the contribution table, so a
-%  member is entered exactly once. Roles may contain commas.
+% This single list fills both tables in format/cover.tex:
+%     cover : Name | Student ID
+%     roles : No. | Name | Role | Completion %
 %
-%  Leave the list empty ( \newcommand{\members}{} ) to hide both tables.
-% =============================================================================
-
-% Placeholder definition: the tables below replace it when they use the list.
-\newcommand{\memberrow}[4]{}
+% Roles may contain commas. Leave the list empty to hide both tables.
 
 \newcommand{\members}{%
     \memberrow{Nguyen Van A}{2452001}{Analysed the requirements and wrote the introduction}{100}%

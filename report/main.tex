@@ -1,32 +1,29 @@
-% =============================================================================
-%  REPORT TEMPLATE  --  start here
-%  ---------------------------------------------------------------------------
-%  Edit metadata.tex, members.tex and the files in sections/.
-%  The switches below control the optional front and back matter.
-% =============================================================================
+% ==========================================
+% REPORT — start here
+% ==========================================
+% 1. Fill in metadata.tex (cover text, header).
+% 2. Fill in members.tex (one line per member).
+% 3. Write sections/ and add one \input line per file in the body.
+% 4. format/ holds the styling and the cover layout.
+% ==========================================
 \documentclass[10pt, a4paper]{article}
 
-\usepackage{preamble}
+\usepackage{format/preamble}
 \input{metadata.tex}
 \input{members.tex}
 
-% --- Optional parts (set to true/false) --------------------------------------
-\newif\ifshowmembers  \showmemberstrue    % title-page and contribution tables
+% --- Optional pages (true / false) ------------------------------------------
+\newif\ifshowmembers  \showmemberstrue    % cover member table + roles page
 \newif\ifshowabstract \showabstracttrue   % abstract page
 \newif\ifshowlof      \showloftrue        % list of figures
 \newif\ifshowlot      \showlottrue        % list of tables
-\newif\ifshowappendix \showappendixtrue   % appendix after the conclusion
+\newif\ifshowappendix \showappendixtrue   % appendix
 
 \begin{document}
 \pagenumbering{roman}
 
-% --- Front matter (roman page numbers, cover unnumbered) --------------------
-\input{titlepage.tex}
-
-\ifshowmembers
-    \clearpage
-    \input{contributions.tex}
-\fi
+% --- Front matter ------------------------------------------------------------
+\input{format/cover.tex}
 
 \ifshowabstract
     \clearpage
@@ -50,7 +47,7 @@
     \listoftables
 \fi
 
-% --- Main content (arabic page numbers, restart at 1) -----------------------
+% --- Body --------------------------------------------------------------------
 \clearpage
 \pagenumbering{arabic}
 
@@ -60,10 +57,10 @@
 \ifshowappendix
     \clearpage
     \appendix
-    \input{appendices/A-appendix.tex}
+    \input{sections/A-appendix.tex}
 \fi
 
-% --- References -------------------------------------------------------------
+% --- References --------------------------------------------------------------
 \clearpage
 \printbibliography[heading=bibintoc]
 

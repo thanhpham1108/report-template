@@ -1,79 +1,57 @@
 # Report Template
 
-A reusable LaTeX report template (A4, 10pt, HCMUT cover by default) with a
-parameterised title page, one-list member tables, optional front/back matter,
-theorem boxes, and biblatex + biber.
+A reusable LaTeX report template (A4, 10pt) with the HCMUT cover, one list that
+fills both member tables, optional front/back matter, theorem boxes, code
+listings, and biblatex + biber.
 
-## Repository layout
-
-Git and the LaTeX sources are kept apart, exactly like the slides template:
+## Layout
 
 ```
 report-template/          <- git repository (never upload this)
-├── .git/                 <- history, hidden, not part of the report
+├── .git/
 ├── .gitignore
 ├── .gitattributes
 ├── report.zip            <- generated, ready to upload (not tracked)
 └── report/               <- THE LATEX PROJECT: upload only this
 ```
 
-Everything below is inside `report/`:
-
 ```
 report/
 ├── main.tex            <- document order + on/off switches
-├── metadata.tex        <- organisation, course, title, instructor, date
-├── members.tex         <- ONE list drives both member tables
-├── preamble.sty        <- packages, layout, header/footer, theorem boxes
-├── branding.tex        <- palette + logo path
-├── titlepage.tex       <- cover, built from metadata
-├── contributions.tex   <- roles / completion table, built from members
-├── refs.bib            <- bibliography database
-├── COMPONENTS.tex      <- preview/copy-paste cookbook (not in the report)
-├── sections/
+├── metadata.tex        <- cover text and running header
+├── members.tex         <- ONE list, fills both member tables
+├── refs.bib            <- bibliography
+├── sections/           <- your writing
 │   ├── 00-abstract.tex
 │   ├── 01-introduction.tex   <- demo, replace it
-│   └── 99-conclusion.tex
-├── appendices/A-appendix.tex
-└── images/logo.png
+│   ├── 99-conclusion.tex
+│   └── A-appendix.tex
+├── images/logo.png
+└── format/             <- styling, you normally leave it alone
+    ├── preamble.sty    <- packages, palette, header/footer, boxes
+    └── cover.tex       <- cover page + member roles page
 ```
 
-## Quick start
+## The three files you edit
 
-1. Copy `report/` and rename it after the report.
-2. Edit `metadata.tex` (organisation, course, title, instructor, date).
-3. Edit `members.tex` (one line per member; roles may contain commas).
-4. Write `sections/`, adding one `\input` line per file in `main.tex`.
-
-## Metadata
+`metadata.tex` — cover text and header:
 
 ```latex
 \newcommand{\orglineA}{VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY}
 \newcommand{\orglineB}{HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY}
 \newcommand{\orglineC}{FACULTY OF COMPUTER SCIENCE AND ENGINEERING}
 
-\newcommand{\doctype}{PROJECT REPORT}
+\newcommand{\doctype}{PROJECT REPORT}      % the red line on the cover
 \newcommand{\coursename}{DATABASE SYSTEMS}
 \newcommand{\coursecode}{CO2014}
 \newcommand{\reporttitle}{ASSIGNMENT 1}
 \newcommand{\instructor}{Vu Ngoc Tu, CSE-HCMUT}
 \newcommand{\locationdate}{Ho Chi Minh City, March, 2026}
-\newcommand{\reporthead}{CO2014 --- Database Systems}   % running header
+\newcommand{\reporthead}{Database Systems Assignment}   % top-right of every page
 ```
 
-- `\doctype` is the red line on the cover: `PROJECT REPORT`, `ASSIGNMENT`,
-  `LAB REPORT`, `THESIS`, anything.
-- The running header is `\reporthead`; keep it short.
-
-## Rebranding for another organisation
-
-1. Replace `images/logo.png` with your logo (same filename).
-2. Change the three `\orgline` entries in `metadata.tex`.
-
-Leave an `\orgline` empty to hide that line. Set `\reportlogofalse` in
-`branding.tex` to remove the logo from both the cover and the header.
-
-## Members
+`members.tex` — one line per member, fields are
+**name**, **student ID**, **role**, **completion**:
 
 ```latex
 \newcommand{\members}{%
@@ -82,113 +60,75 @@ Leave an `\orgline` empty to hide that line. Set `\reportlogofalse` in
 }
 ```
 
-Fields: **name**, **student ID**, **role**, **completion**. The same list
-produces the cover table and the contribution table, numbered automatically.
-Leave `\members{}` empty to hide both.
+That single list produces the cover table (Name | Student ID) and the roles
+page (No. | Name | Role | Completion %), numbered automatically. An empty list
+hides both.
 
-## Switches in main.tex
-
-```latex
-\newif\ifshowmembers  \showmemberstrue   % cover + contribution tables
-\newif\ifshowabstract \showabstracttrue  % abstract page
-\newif\ifshowlof      \showloftrue       % list of figures
-\newif\ifshowlot      \showlottrue       % list of tables
-\newif\ifshowappendix \showappendixtrue  % appendix
-```
-
-For a short assignment, turn off `showabstract`, `showlof`, `showlot` and
-`showappendix`.
-
-## Writing sections
-
-Create `sections/02-design.tex`:
-
-```latex
-\section{Design}
-\label{sec:design}
-
-\subsection{Data model}
-Text, then a reference: Figure~\ref{fig:schema}.
-```
-
+`sections/` — your content. To add a chapter, create `sections/02-design.tex`
 and add one line in `main.tex`:
 
 ```latex
 \input{sections/02-design.tex}
 ```
 
-Page numbering: front matter is roman, the body restarts at 1, the header shows
-`current / total` automatically (`lastpage`).
-
-## Figures and tables
-
-Put images in `images/` and reference them by filename only — the folder is
-already on the graphics path:
+## Switches in main.tex
 
 ```latex
-\includegraphics[width=0.8\linewidth]{diagram.png}
+\newif\ifshowmembers  \showmemberstrue    % cover member table + roles page
+\newif\ifshowabstract \showabstracttrue   % abstract
+\newif\ifshowlof      \showloftrue        % list of figures
+\newif\ifshowlot      \showlottrue        % list of tables
+\newif\ifshowappendix \showappendixtrue   % appendix
 ```
 
-Filenames are case-sensitive on Overleaf. Use lowercase, no spaces.
+Set any to `false` for a shorter report. Page numbering: front matter roman,
+body restarts at 1.
 
-Tables: `booktabs` for rules, `tabularx` for full-width wrapping columns. See
-`COMPONENTS.tex`.
+## Rebranding for another organisation
 
-## Citations
+1. Replace `images/logo.png` with your logo (same filename).
+2. Change the three `\orgline` lines in `metadata.tex`.
+3. Optional: the palette lives at the top of `format/preamble.sty`
+   (`lblue`, `dblue`, `blued`, `blu`, `gray1`, `jspink`, `gree`, ...).
 
-`biblatex` + `biber`, IEEE style. Add entries to `refs.bib`, then:
+Leave an `\orgline` empty to hide it; `\reportlogofalse` removes the logo from
+cover and header.
 
-```latex
-\textcite{sample-article}      % Doe and Roe (2024) show ...
-\parencite{sample-online}      % (WHO, 2025)
-```
+## Writing
 
-References are printed at the end by `\printbibliography` in `main.tex` and
-appear in the table of contents. To change style, edit one line in
-`preamble.sty`: `style=ieee` -> `style=apa`, `style=numeric`, ...
-
-## Theorem-like environments
-
-Available everywhere: `theorem`, `definition`, `problem`, `example`,
-`corollary`, `solution`. They are styled with the brand palette and defined in
-`preamble.sty`.
-
-## Previewing components
-
-Set `COMPONENTS.tex` as the main document in Overleaf to see every building
-block (figures, subfigures, tables, lists, theorem boxes, code, citations,
-equations, callout, landscape page). Copy what you need, then set `main.tex`
-back as the main document.
+- Images: put them in `images/`, already on the graphics path:
+  `\includegraphics[width=0.8\linewidth]{diagram.png}` (case-sensitive).
+- Tables: `booktabs` rules, `tabularx` for full-width wrapping columns.
+- Boxes: `theorem`, `definition`, `problem`, `example`, `corollary`,
+  `solution`, `Proof`.
+- Code: `\begin{lstlisting}[language=SQL] ... \end{lstlisting}`, or inline
+  `\codeinline{SELECT * FROM t;}`.
+- Citations: add to `refs.bib`, then `\textcite{sample-article}` or
+  `\parencite{sample-online}`. IEEE style; change `style=` in
+  `format/preamble.sty` for APA or numeric.
+- References print at the end via `\printbibliography` and appear in the TOC.
 
 ## Building on Overleaf
 
-1. Upload `report.zip` (already generated at the repository root), or zip the
-   **contents** of `report/` so `main.tex` sits at the zip root.
-2. Overleaf: **New Project -> Upload Project**.
-3. Compiler: **pdfLaTeX**. Biber runs automatically for biblatex; if the
-   bibliography shows `[?]`, recompile once more or check
-   **Menu -> Settings -> TeX Live version** is current.
-4. `main.tex` must be the main document.
+1. Upload `report.zip` (already generated at the repository root).
+2. **New Project -> Upload Project**, compiler **pdfLaTeX**. `main.tex` is the
+   main document, already at the project root.
+3. Biber runs automatically; if citations show `[?]`, recompile once more.
 
-Regenerate the upload zip after any change (from the repository root):
+Regenerate the zip after changes (from the repository root, after committing):
 
 ```powershell
 git archive --format=zip -o report.zip HEAD:report
 ```
 
-That exports the committed contents of `report/` with `main.tex` at the zip
-root and forward-slash paths, which is what Overleaf expects. Commit first, then
-run it. `report.zip` is ignored by git, so it never enters history.
-
-Avoid Windows' `Compress-Archive` for this: it writes backslash separators
-(`sections\file.tex`) that Linux unzip treats as literal filenames, so Overleaf
-ends up with broken `\input` paths.
+Windows' `Compress-Archive` writes backslash paths that Overleaf's unzip treats
+as literal filenames, so use the command above.
 
 ## Vietnamese text
 
-The template loads `babel` with English as the main language and Vietnamese
-available. For a mostly-Vietnamese report, switch the compiler to **XeLaTeX**
-and replace the font block in `preamble.sty`:
+Babel loads English as the main language with Vietnamese available. For a
+mostly-Vietnamese report, switch the compiler to **XeLaTeX** and in
+`format/preamble.sty` replace:
 
 ```latex
 % remove
@@ -201,21 +141,11 @@ and replace the font block in `preamble.sty`:
 
 ## The original report
 
-This template was cleaned from a database-systems assignment (YouMed EERD).
-The original is preserved in git:
+The template was cleaned from a database-systems assignment (YouMed EERD); the
+original is preserved in git:
 
 ```bash
 git log --oneline
 git show 4dec451 --stat
-git archive 4dec451 -o original-report.zip   # export it without touching the tree
+git archive 4dec451 -o original-report.zip
 ```
-
-Note that `4dec451` predates the `report/` folder: its files sit at the
-repository root. Later commits moved them into `report/`.
-
-## Conventions
-
-- One idea per paragraph; use `\autoref`/`\ref` for every figure and table.
-- Keep labels unique and prefixed: `fig:`, `tab:`, `sec:`, `eq:`, `app:`.
-- Prefer `booktabs` over vertical rules.
-- Put images in `images/`, content in `sections/`, nothing else at the root.
