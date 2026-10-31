@@ -4,7 +4,7 @@ A reusable LaTeX report template: parameterised cover, one member list that
 fills both member tables, optional front/back matter, theorem boxes, code
 listings and a biblatex bibliography.
 
-<img src="docs/cover.png" alt="Cover page of the report template" width="360">
+<img src="assets/cover.png" alt="Cover page of the report template" width="360">
 
 ## Features
 
@@ -32,7 +32,7 @@ Git history and the LaTeX sources are kept apart: `.git` stays on your machine,
 report-template/
 ├── .git/                 history only — never uploaded
 ├── report.zip            generated, ready to upload (not tracked)
-├── docs/cover.png        preview image
+├── assets/cover.png      preview image
 ├── README.md
 └── report/               ← THE LATEX PROJECT
     ├── main.tex          document order + on/off switches

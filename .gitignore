@@ -19,6 +19,7 @@ main.pdf
 
 # Packaging and OS noise
 *.zip
+docs/
 .DS_Store
 Thumbs.db
 desktop.ini
