@@ -4,10 +4,23 @@ A reusable LaTeX report template (A4, 10pt, HCMUT cover by default) with a
 parameterised title page, one-list member tables, optional front/back matter,
 theorem boxes, and biblatex + biber.
 
-## Structure
+## Repository layout
+
+Git and the LaTeX sources are kept apart, exactly like the slides template:
 
 ```
-report-template/
+report-template/          <- git repository (never upload this)
+├── .git/                 <- history, hidden, not part of the report
+├── .gitignore
+├── .gitattributes
+├── report.zip            <- generated, ready to upload (not tracked)
+└── report/               <- THE LATEX PROJECT: upload only this
+```
+
+Everything below is inside `report/`:
+
+```
+report/
 ├── main.tex            <- document order + on/off switches
 ├── metadata.tex        <- organisation, course, title, instructor, date
 ├── members.tex         <- ONE list drives both member tables
@@ -27,7 +40,7 @@ report-template/
 
 ## Quick start
 
-1. Copy the whole folder and rename it after the report.
+1. Copy `report/` and rename it after the report.
 2. Edit `metadata.tex` (organisation, course, title, instructor, date).
 3. Edit `members.tex` (one line per member; roles may contain commas).
 4. Write `sections/`, adding one `\input` line per file in `main.tex`.
@@ -149,12 +162,27 @@ back as the main document.
 
 ## Building on Overleaf
 
-1. Zip the **contents** of `report-template/` so `main.tex` is at the zip root.
+1. Upload `report.zip` (already generated at the repository root), or zip the
+   **contents** of `report/` so `main.tex` sits at the zip root.
 2. Overleaf: **New Project -> Upload Project**.
 3. Compiler: **pdfLaTeX**. Biber runs automatically for biblatex; if the
    bibliography shows `[?]`, recompile once more or check
    **Menu -> Settings -> TeX Live version** is current.
 4. `main.tex` must be the main document.
+
+Regenerate the upload zip after any change (from the repository root):
+
+```powershell
+git archive --format=zip -o report.zip HEAD:report
+```
+
+That exports the committed contents of `report/` with `main.tex` at the zip
+root and forward-slash paths, which is what Overleaf expects. Commit first, then
+run it. `report.zip` is ignored by git, so it never enters history.
+
+Avoid Windows' `Compress-Archive` for this: it writes backslash separators
+(`sections\file.tex`) that Linux unzip treats as literal filenames, so Overleaf
+ends up with broken `\input` paths.
 
 ## Vietnamese text
 
@@ -177,10 +205,13 @@ This template was cleaned from a database-systems assignment (YouMed EERD).
 The original is preserved in git:
 
 ```bash
-git log --oneline          # 4dec451 is the original import
+git log --oneline
 git show 4dec451 --stat
-git checkout 4dec451 -- .  # restore into the working tree (careful)
+git archive 4dec451 -o original-report.zip   # export it without touching the tree
 ```
+
+Note that `4dec451` predates the `report/` folder: its files sit at the
+repository root. Later commits moved them into `report/`.
 
 ## Conventions
 
